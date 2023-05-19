@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="registrationApp">
+
+<head>
+  <title>Registration Form</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div ng-controller="RegistrationController" class="container">
+    <h2>Registration Form</h2>
+    <form name="registrationForm" novalidate>
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" class="form-control" id="username" name="username" ng-model="user.username" required>
+        <span ng-show="registrationForm.username.$touched && registrationForm.username.$error.required" class="text-danger">Username is required.</span>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" name="password" ng-model="user.password" required>
+        <span ng-show="registrationForm.password.$touched && registrationForm.password.$error.required" class="text-danger">Password is required.</span>
+      </div>
+
+      <div class="form-group">
+        <label for="repeatPassword">Repeat Password:</label>
+        <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" ng-model="user.repeatPassword" required ng-pattern="user.password">
+        <span ng-show="registrationForm.repeatPassword.$touched && registrationForm.repeatPassword.$error.required" class="text-danger">Repeat Password is required.</span>
+        <span ng-show="registrationForm.repeatPassword.$error.pattern" class="text-danger">Passwords do not match.</span>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" ng-model="user.email" required>
+        <span ng-show="registrationForm.email.$touched && registrationForm.email.$error.required" class="text-danger">Email is required.</span>
+        <span ng-show="registrationForm.email.$error.email" class="text-danger">Invalid email address.</span>
+      </div>
+
+      <button type="submit" class="btn btn-primary" ng-disabled="registrationForm.$invalid" ng-click="submitForm()">Submit</button>
+      <button type="button" class="btn btn-default" ng-click="cancelForm()">Cancel</button>
+    </form>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+  <script>
+    var app = angular.module('registrationApp', []);
+
+    app.controller('RegistrationController', function($scope) {
+      $scope.user = {};
+
+      $scope.submitForm = function() {
+        // Handle form submission logic here
+        console.log('Form submitted:', $scope.user);
+      };
+
+      $scope.cancelForm = function() {
+        // Handle cancel button logic here
+        console.log('Form canceled.');
+      };
+    });
+  </script>
+</body>
+
+</html>
